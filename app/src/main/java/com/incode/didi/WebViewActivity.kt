@@ -84,10 +84,10 @@ class WebViewActivity : AppCompatActivity() {
                 // This can be used to listen for URL changes corresponding to certain events in the WebView.
                 override fun doUpdateVisitedHistory(view: WebView, url: String, isReload: Boolean) {
                     Log.d(Constants.TAG, "doUpdateVisitedHistory(): $url")
+                    val urlAsUri = Uri.parse(url)
 
                     if (url.contains("/verification-result?")) {
                         // Redirect back to this app once onboarding attempt is finished
-                        val urlAsUri = Uri.parse(url)
                         val message = if (urlAsUri.getQueryParameter("error") != null) {
                             // Bad things happened. Route to the error screen
                             "Identity verification failed"
@@ -98,7 +98,17 @@ class WebViewActivity : AppCompatActivity() {
                         runOnUiThread {
                             ResultActivity.start(this@WebViewActivity, message)
                         }
-                    }
+                    } /*else if (url.contains("/verification-consent/success")) {
+                        // Test code to exercise routing logic for a login attempt.
+                        runOnUiThread {
+                            ResultActivity.start(this@WebViewActivity, "Identity successfully verified")
+                        }
+                    } else if (url.contains("/verification-consent/error")) {
+                        // Test code to exercise routing logic for a login attempt.
+                        runOnUiThread {
+                            ResultActivity.start(this@WebViewActivity, "Identity verification failed")
+                        }
+                    }*/
 
                     super.doUpdateVisitedHistory(view, url, isReload)
                 }
@@ -115,9 +125,6 @@ class WebViewActivity : AppCompatActivity() {
                     Log.d(Constants.TAG, "onPageFinished(): $url")
                 }
             }
-
-            // Hook in binding b/w the JS and native code to pass data from the webview back.
-//            addJavascriptInterface(JavascriptInterface(this@MainActivity, this), "NativeJSInterface")
 
             loadUrl("https://demo.incode.id/?client_id=incodeid_demo505_web")
         }
