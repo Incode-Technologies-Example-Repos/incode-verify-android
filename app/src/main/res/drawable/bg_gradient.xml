@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--  Gradient Background for the orange part of the home screen -->
+    <gradient
+        android:startColor="#FF8E40"
+        android:endColor="#FF7140"
+        android:angle="270"/>
+</shape>

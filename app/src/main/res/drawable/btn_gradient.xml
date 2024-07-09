@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--  Gradient Background for buttons -->
+    <gradient
+        android:startColor="#FF8D41"
+        android:endColor="#FF7341" />
+    <corners android:radius="38dp" />
+</shape>
