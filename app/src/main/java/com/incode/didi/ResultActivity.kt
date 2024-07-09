@@ -24,7 +24,21 @@ class ResultActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        binding.tvMessage.text = intent.getStringExtra(EXTRA_MESSAGE)
+
+        // Set the success/failure message based on how we got here
+        val deepLinkUri = intent.data
+        if (deepLinkUri != null) {
+            // The onboarding/login was done externally.
+            val text = if (deepLinkUri.host == "success") {
+                "Identity successfully verified"
+            } else {
+                "Identity verification failed"
+            }
+            binding.tvMessage.text = text
+        } else {
+            // We came in through the app itself. Set the text based on what was provided.
+            binding.tvMessage.text = intent.getStringExtra(EXTRA_MESSAGE)
+        }
     }
 
     companion object {

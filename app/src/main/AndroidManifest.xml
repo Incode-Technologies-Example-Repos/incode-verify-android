@@ -25,11 +25,13 @@
             <!-- Custom URL scheme for deep links to -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <!-- TODO: Figure out what the real deep link should be and test -->
-                <data android:scheme="placeholder"
-                    android:host="dididemo" />
+                <data android:scheme="dididemo"/>
+                <data android:host="success"/>
+                <data android:host="error"/>
             </intent-filter>
         </activity>
         <activity

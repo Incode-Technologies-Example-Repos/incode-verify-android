@@ -37,7 +37,7 @@ class IntroActivity : AppCompatActivity() {
         }
 
         binding.btnVerifyInstantApp.setOnClickListener {
-            val url = "https://app.incode.com/?url=https%3A%2F%2Fdemo.incode.id%2F%3Fclient_id%3Dincodeid_demo505_web%26origin%3Dnative"
+            val url = "https://app.incode.com/?url=https%3A%2F%2Fdemo.incode.id%2F%3Fclient_id%3Dincodeid_demo505_ma%26origin%3Dnative"
             try {
                 val intent = Intent(ACTION_VIEW,
                     Uri.parse(url)
