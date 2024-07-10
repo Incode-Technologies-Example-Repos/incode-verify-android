@@ -2,6 +2,7 @@ package com.incode.didi
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -77,32 +78,38 @@ class WebViewActivity : AppCompatActivity() {
                     view: WebView,
                     request: WebResourceRequest
                 ): Boolean {
-                    return true // We always handle the url loading, one way or another
+                    val urlAsString = request.url.toString()
+
+                    // Intercept changes if our verification finished
+                    if (urlAsString.contains("/verification-result?")) {
+                        // Redirect back to this app once onboarding attempt is finished
+                        runOnUiThread {
+                            ResultActivity.start(this@WebViewActivity, request.url.getQueryParameter("token") != null)
+                        }
+                    } else if (urlAsString.contains("/verification-consent/success")) {
+                        // Route back for a successful login attempt.
+                        runOnUiThread {
+                            ResultActivity.start(this@WebViewActivity, true)
+                        }
+                    } else if (urlAsString.contains("/verification-consent/error")) {
+                        // Route back for a failed login attempt.
+                        runOnUiThread {
+                            ResultActivity.start(this@WebViewActivity, false)
+                        }
+                    } else if (urlAsString.startsWith("mailto:")) {
+                        // Intercept `mailto` events to open an email client.
+                        startActivity(Intent(Intent.ACTION_SENDTO, request.url))
+                    } else {
+                        // Otherwise, handle URLs normally
+                        return super.shouldOverrideUrlLoading(view, request)
+                    }
+                    return true
                 }
 
                 // The host application is notified to update its visited links database anytime the URL loaded changes.
                 // This can be used to listen for URL changes corresponding to certain events in the WebView.
                 override fun doUpdateVisitedHistory(view: WebView, url: String, isReload: Boolean) {
                     Log.d(Constants.TAG, "doUpdateVisitedHistory(): $url")
-                    val urlAsUri = Uri.parse(url)
-
-                    if (url.contains("/verification-result?")) {
-                        // Redirect back to this app once onboarding attempt is finished
-                        runOnUiThread {
-                            ResultActivity.start(this@WebViewActivity, urlAsUri.getQueryParameter("token") != null)
-                        }
-                    } else if (url.contains("/verification-consent/success")) {
-                        // Route back for a successful login attempt.
-                        runOnUiThread {
-                            ResultActivity.start(this@WebViewActivity, true)
-                        }
-                    } else if (url.contains("/verification-consent/error")) {
-                        // Route back for a failed login attempt.
-                        runOnUiThread {
-                            ResultActivity.start(this@WebViewActivity, false)
-                        }
-                    }
-
                     super.doUpdateVisitedHistory(view, url, isReload)
                 }
 
