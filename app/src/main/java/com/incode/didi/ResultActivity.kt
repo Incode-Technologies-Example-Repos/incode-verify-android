@@ -54,6 +54,14 @@ class ResultActivity : AppCompatActivity() {
         binding.tvMessage.text = "Identity verification failed"
     }
 
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    override fun onBackPressed() {
+        // Just roll back to the start
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+        super.onBackPressed()
+    }
+
     companion object {
         const val EXTRA_SUCCESS = "extra_success"
 
