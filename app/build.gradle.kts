@@ -11,8 +11,8 @@ android {
         applicationId = "com.incode.didi"
         minSdk = 21
         targetSdk = 34
-        versionCode = 4
-        versionName = "0.0.4"
+        versionCode = 5
+        versionName = "0.0.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
