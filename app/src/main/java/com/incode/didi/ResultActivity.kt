@@ -1,6 +1,5 @@
 package com.incode.didi
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -29,25 +28,39 @@ class ResultActivity : AppCompatActivity() {
         val deepLinkUri = intent.data
         if (deepLinkUri != null) {
             // The onboarding/login was done externally.
-            val text = if (deepLinkUri.host == "success") {
-                "Identity successfully verified"
+            if (deepLinkUri.host == "success") {
+                setSuccessUI()
             } else {
-                "Identity verification failed"
+                setErrorUI()
             }
-            binding.tvMessage.text = text
         } else {
-            // We came in through the app itself. Set the text based on what was provided.
-            binding.tvMessage.text = intent.getStringExtra(EXTRA_MESSAGE)
+            // We came in through the app itself. Set the UI based on the state.
+            val success = intent.getBooleanExtra(EXTRA_SUCCESS, false)
+            if (success) {
+                setSuccessUI()
+            } else {
+                setErrorUI()
+            }
         }
     }
 
+    private fun setSuccessUI() {
+        binding.ivIcon.setImageResource(R.drawable.ic_success)
+        binding.tvMessage.text = "Identity successfully verified"
+    }
+
+    private fun setErrorUI() {
+        binding.ivIcon.setImageResource(R.drawable.ic_error)
+        binding.tvMessage.text = "Identity verification failed"
+    }
+
     companion object {
-        const val EXTRA_MESSAGE = "extra_message"
+        const val EXTRA_SUCCESS = "extra_success"
 
         @JvmStatic
-        fun start(context: Context, message: String) {
+        fun start(context: Context, success: Boolean) {
             val intent = Intent(context, ResultActivity::class.java).apply {
-                putExtra(EXTRA_MESSAGE, message)
+                putExtra(EXTRA_SUCCESS, success)
             }
             context.startActivity(intent)
         }

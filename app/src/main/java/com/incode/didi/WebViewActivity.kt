@@ -88,27 +88,20 @@ class WebViewActivity : AppCompatActivity() {
 
                     if (url.contains("/verification-result?")) {
                         // Redirect back to this app once onboarding attempt is finished
-                        val message = if (urlAsUri.getQueryParameter("error") != null) {
-                            // Bad things happened. Route to the error screen
-                            "Identity verification failed"
-                        } else {
-                            // The query was successful. Route to the success screen
-                            "Identity successfully verified"
-                        }
                         runOnUiThread {
-                            ResultActivity.start(this@WebViewActivity, message)
+                            ResultActivity.start(this@WebViewActivity, urlAsUri.getQueryParameter("token") != null)
                         }
-                    } /*else if (url.contains("/verification-consent/success")) {
-                        // Test code to exercise routing logic for a login attempt.
+                    } else if (url.contains("/verification-consent/success")) {
+                        // Route back for a successful login attempt.
                         runOnUiThread {
-                            ResultActivity.start(this@WebViewActivity, "Identity successfully verified")
+                            ResultActivity.start(this@WebViewActivity, true)
                         }
                     } else if (url.contains("/verification-consent/error")) {
-                        // Test code to exercise routing logic for a login attempt.
+                        // Route back for a failed login attempt.
                         runOnUiThread {
-                            ResultActivity.start(this@WebViewActivity, "Identity verification failed")
+                            ResultActivity.start(this@WebViewActivity, false)
                         }
-                    }*/
+                    }
 
                     super.doUpdateVisitedHistory(view, url, isReload)
                 }
@@ -126,7 +119,7 @@ class WebViewActivity : AppCompatActivity() {
                 }
             }
 
-            loadUrl("https://demo.incode.id/?client_id=incodeid_demo505_web")
+            loadUrl("https://demo.incode.id/?client_id=incodeid_demo505_web&origin=native")
         }
     }
 
