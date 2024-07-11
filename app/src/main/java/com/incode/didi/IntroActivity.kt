@@ -19,7 +19,7 @@ class IntroActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityIntroBinding
 
-    @SuppressLint("WrongConstant") // FLAG_ACTIVITY_REQUIRE_NON_BROWSER on API Level 30
+    @SuppressLint("WrongConstant") // FLAG_ACTIVITY_MATCH_EXTERNAL on API Level 28
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,7 +31,6 @@ class IntroActivity : AppCompatActivity() {
             insets
         }
 
-        // TODO: Route to webview or instant app depending on menu setting vs separate buttons
         binding.btnVerifyWebView.setOnClickListener {
             startActivity(Intent(this, WebViewActivity::class.java))
         }
@@ -42,10 +41,9 @@ class IntroActivity : AppCompatActivity() {
                 val intent = Intent(ACTION_VIEW,
                     Uri.parse(url)
                 ).apply {
-                    // The URL should either launch directly in a non-browser app (if it's
-                    // the default), or in the disambiguation dialog.
+                    // The URL should launch directly in the instant app, or in a browser window if the user selects "Open in Browser".
                     addCategory(CATEGORY_BROWSABLE)
-                    flags = FLAG_ACTIVITY_NEW_TASK or 0x00000400
+                    flags = FLAG_ACTIVITY_NEW_TASK or 0x00000800
                 }
                 startActivity(intent)
             } catch (e: ActivityNotFoundException) {
