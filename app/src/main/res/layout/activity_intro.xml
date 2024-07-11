@@ -20,9 +20,9 @@
 
     <Button
         android:id="@+id/btnVerifyWebView"
-        android:layout_width="wrap_content"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:text="Verify with Incode (WV)"
+        android:text="Verify with Incode (1)"
         android:background="@drawable/btn_gradient"
         android:drawableLeft="@drawable/button_icon"
         android:drawablePadding="4dp"
@@ -39,9 +39,9 @@
 
     <Button
         android:id="@+id/btnVerifyInstantApp"
-        android:layout_width="wrap_content"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:text="Verify with Incode (IA)"
+        android:text="Verify with Incode (2)"
         android:background="@drawable/btn_gradient"
         android:drawableLeft="@drawable/button_icon"
         android:textSize="18sp"
