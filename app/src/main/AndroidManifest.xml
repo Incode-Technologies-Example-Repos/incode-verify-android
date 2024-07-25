@@ -39,7 +39,18 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="true">
+            <!-- Custom URL scheme for deep links to -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="dididemo"/>
+                <data android:host="home"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".IntroActivity"
             android:exported="true">
