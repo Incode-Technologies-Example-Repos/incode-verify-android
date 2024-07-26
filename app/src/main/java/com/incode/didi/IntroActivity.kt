@@ -36,10 +36,7 @@ class IntroActivity : AppCompatActivity() {
         }
 
         binding.btnVerifyInstantApp.setOnClickListener {
-//            val url = "https://app.incode.com/?url=https%3A%2F%2Fdemo.incode.id%2F%3Fclient_id%3Dincodeverify_didi_ma%26redirect_url%3Dhttps%3A%2F%2Fwww.google.com%26origin%3Dnative"
-//            val url = "https://app.incode.com/?url=https%3A%2F%2Fdemo.incode.id%2F%3Fclient_id%3Dincodeverify_didi_ma%26redirect_url%3Dwww.google.com%26dtx%3D45e2b2ad57134170b3e4172049496829%26origin%3Dnative"
-//            val url = "https://app.incode.com/?url=https%3A%2F%2Fdemo.incode.id%2F%3Fclient_id%3Dincodeverify_didi_ma%26redirect_url%3Dwww.google.com%26origin%3Dnative"
-            val url = "https://app.incode.com/?url=https%3A%2F%2Fdemo.incode.id%2F%3Fclient_id%3Dincodeverify_didi_ma%26redirect_url%3Ddididemo%3A%2F%2Fhome%26origin%3Dnative"
+            val url = "https://app.incode.com/?url=https%3A%2F%2Fdemo.incode.id%2F%3Fclient_id%3Dincodeverify_didi_ma%26redirect_url%3Ddididemo://home%26origin%3Dnative"
             try {
                 val intent = Intent(ACTION_VIEW,
                     Uri.parse(url)
