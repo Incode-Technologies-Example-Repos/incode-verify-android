@@ -17,6 +17,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.incode.didi.databinding.ActivityWebViewBinding
@@ -26,6 +27,7 @@ class WebViewActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var binding: ActivityWebViewBinding
     private var lastWebPermissionRequest: PermissionRequest? = null
+    private var lastVisitedUrl: String? = null
 
     companion object {
         private const val VIDEO_CAPTURE_WEB_PERMISSION = "android.webkit.resource.VIDEO_CAPTURE"
@@ -83,37 +85,36 @@ class WebViewActivity : AppCompatActivity() {
                     request: WebResourceRequest
                 ): Boolean {
                     val urlAsString = request.url.toString()
-
-                    // Intercept changes if our verification finished
-                    if (urlAsString.contains("/verification-result?")) {
-                        // Redirect back to this app once onboarding attempt is finished
-                        runOnUiThread {
-                            ResultActivity.start(this@WebViewActivity, request.url.getQueryParameter("token") != null)
-                        }
-                    } else if (urlAsString.contains("/verification-consent/success")) {
-                        // Route back for a successful login attempt.
-                        runOnUiThread {
-                            ResultActivity.start(this@WebViewActivity, true)
-                        }
-                    } else if (urlAsString.contains("/verification-consent/error")) {
-                        // Route back for a failed login attempt.
-                        runOnUiThread {
-                            ResultActivity.start(this@WebViewActivity, false)
-                        }
-                    } else if (urlAsString.startsWith("mailto:")) {
+                    if (urlAsString.startsWith("mailto:")) {
                         // Intercept `mailto` events to open an email client.
                         startActivity(Intent(Intent.ACTION_SENDTO, request.url))
-                    } else {
-                        // Otherwise, handle URLs normally
-                        return super.shouldOverrideUrlLoading(view, request)
+                        return true
                     }
-                    return true
+                    return false
                 }
 
                 // The host application is notified to update its visited links database anytime the URL loaded changes.
                 // This can be used to listen for URL changes corresponding to certain events in the WebView.
                 override fun doUpdateVisitedHistory(view: WebView, url: String, isReload: Boolean) {
                     Log.d(Constants.TAG, "doUpdateVisitedHistory(): $url")
+
+                    // Only intercept unique calls.
+                    if (url.contentEquals(lastVisitedUrl)) {
+                        return
+                    }
+                    lastVisitedUrl = url
+
+                    // Intercept changes if our verification finished
+                    if (url.contains("/verification-result?")) {
+                        // Redirect back to this app once onboarding attempt is finished
+                        runOnUiThread {
+                            ResultActivity.start(
+                                this@WebViewActivity,
+                                url.toUri().getQueryParameter("token") != null
+                            )
+                            finish()
+                        }
+                    }
                     super.doUpdateVisitedHistory(view, url, isReload)
                 }
 
@@ -130,7 +131,7 @@ class WebViewActivity : AppCompatActivity() {
                 }
             }
 
-            loadUrl("https://demo.incode.id/?client_id=incodeid_demo505_web&origin=native")
+            loadUrl("https://demo.incode.id/?client_id=incodeid_demo505_web&redirect_url=dididemo://home&origin=native")
         }
     }
 
