@@ -29,10 +29,6 @@ class WebViewActivity : AppCompatActivity() {
     private var lastWebPermissionRequest: PermissionRequest? = null
     private var lastVisitedUrl: String? = null
 
-    companion object {
-        private const val VIDEO_CAPTURE_WEB_PERMISSION = "android.webkit.resource.VIDEO_CAPTURE"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -57,7 +53,7 @@ class WebViewActivity : AppCompatActivity() {
                     lastWebPermissionRequest = request
                     runOnUiThread {
                         // Only cover certain permission requests
-                        if (request.resources.contains(VIDEO_CAPTURE_WEB_PERMISSION)) {
+                        if (request.resources.contains(PermissionRequest.RESOURCE_VIDEO_CAPTURE)) {
                             if (isCameraPermissionGranted()) {
                                 Log.d(Constants.TAG,
                                     String.format(
@@ -65,7 +61,7 @@ class WebViewActivity : AppCompatActivity() {
                                         request.origin.toString()
                                     )
                                 )
-                                request.grant(arrayOf(VIDEO_CAPTURE_WEB_PERMISSION))
+                                request.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
                             } else {
                                 activityResultLauncher.launch(Manifest.permission.CAMERA)
                             }
@@ -138,11 +134,11 @@ class WebViewActivity : AppCompatActivity() {
     private val activityResultLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ ->
             // Handle Permission granted/rejected for the permissions we care about
-            if (lastWebPermissionRequest?.resources?.contains(VIDEO_CAPTURE_WEB_PERMISSION) == true) {
+            if (lastWebPermissionRequest?.resources?.contains(PermissionRequest.RESOURCE_VIDEO_CAPTURE) == true) {
                 if (!isCameraPermissionGranted()) {
-                    lastWebPermissionRequest?.deny() // TODO: The screen in the web flow for this case doesn't work in the context of a WebView.
+                    lastWebPermissionRequest?.deny()
                 } else {
-                    lastWebPermissionRequest?.grant(arrayOf(VIDEO_CAPTURE_WEB_PERMISSION))
+                    lastWebPermissionRequest?.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
                 }
             }
         }
