@@ -33,6 +33,7 @@ class IntroActivity : AppCompatActivity() {
 
         binding.btnVerifyWebView.setOnClickListener {
             startActivity(Intent(this, WebViewActivity::class.java))
+            finish()
         }
 
         binding.btnVerifyInstantApp.setOnClickListener {
@@ -46,6 +47,7 @@ class IntroActivity : AppCompatActivity() {
                     flags = FLAG_ACTIVITY_NEW_TASK or 0x00000800
                 }
                 startActivity(intent)
+                finish()
             } catch (e: ActivityNotFoundException) {
                 Log.e(Constants.TAG, "Couldn't find an activity to open URL: $url")
             }
