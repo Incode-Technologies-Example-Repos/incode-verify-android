@@ -127,7 +127,7 @@ class WebViewActivity : AppCompatActivity() {
                 }
             }
 
-            loadUrl("https://demo.incode.id/?client_id=incodeid_demo505_web&redirect_url=dididemo://home&origin=native")
+            loadUrl("https://demo.incode.id/?client_id=incodeverify_didi_web&redirect_url=dididemo://home&origin=native")
         }
     }
 
