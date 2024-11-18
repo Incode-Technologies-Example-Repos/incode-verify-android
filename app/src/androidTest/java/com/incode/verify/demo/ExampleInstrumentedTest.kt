@@ -1,4 +1,4 @@
-package com.incode.didi
+package com.incode.verify.demo
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.incode.didi", appContext.packageName)
+        assertEquals("com.incode.verify.demo", appContext.packageName)
     }
 }

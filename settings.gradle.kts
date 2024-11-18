@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "DidiDemo-Android"
+rootProject.name = "IncodeVerify-Android"
 include(":app")
  

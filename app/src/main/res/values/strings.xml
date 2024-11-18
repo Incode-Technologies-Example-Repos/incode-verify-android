@@ -1,3 +1,33 @@
 <resources>
-    <string name="app_name">DidiDemo-Android</string>
+    <string name="app_name">IncodeVerify-Android</string>
+
+    <string name="title_activity_home">Home</string>
+    <string name="intro_subtitle">Verify your identity and create your digital identity for future use!</string>
+    <string name="intro_title">Acme verification with Incode</string>
+    <string name="intro_instruction_1">You’ll need a valid government-issued ID and a selfie</string>
+    <string name="intro_instruction_2">A verification will be added to your Acme account after you verify with Incode</string>
+    <string name="intro_instruction_3">Your data is securely processed and stored in your account</string>
+    <string name="intro_webview">Webview</string>
+    <string name="intro_instant_app">Instant app</string>
+    <string name="intro_verify_with_incode">Verify with Incode</string>
+    <string name="intro_terms">Incode Terms will apply</string>
+    <string name="intro_learn_more">Learn more</string>
+
+    <string name="result_failed_title">We could not complete your Acme request</string>
+    <string name="result_failed_subtitle">Your identity verification failed, look at the tips and try again</string>
+    <string name="result_failed_tips_title">Helpful tips:</string>
+    <string name="result_failed_tips_row_1">Ensure you\'re in a well-lit area, but avoid direct sunlight.</string>
+    <string name="result_failed_tips_row_2">Avoid shadows and glare</string>
+    <string name="result_failed_tips_row_3">Make sure the photo is sharp.</string>
+    <string name="result_failed_tips_row_4">Make sure the information is readable.</string>
+
+    <string name="result_approved_title">All done!</string>
+    <string name="result_approved_subtitle">Your request was approved</string>
+    <string name="result_approved_note">You can now start using your Acme card and enjoying all its benefits</string>
+
+    <string name="generic_try_again">Try again</string>
+    <string name="generic_cancel">Cancel</string>
+    <string name="generic_done">Done</string>
+    <string name="generic_help">Help</string>
+
 </resources>

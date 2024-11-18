@@ -1,4 +1,4 @@
-package com.incode.didi
+package com.incode.verify.demo
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -18,9 +18,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.incode.didi.databinding.ActivityWebViewBinding
+import com.incode.verify.demo.databinding.ActivityWebViewBinding
+import com.incode.verify.demo.extensions.applySystemBarPadding
 
 class WebViewActivity : AppCompatActivity() {
 
@@ -34,11 +33,7 @@ class WebViewActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityWebViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        applySystemBarPadding(R.id.main)
 
         webView = findViewById(R.id.webview)
 
@@ -55,7 +50,8 @@ class WebViewActivity : AppCompatActivity() {
                         // Only cover certain permission requests
                         if (request.resources.contains(PermissionRequest.RESOURCE_VIDEO_CAPTURE)) {
                             if (isCameraPermissionGranted()) {
-                                Log.d(Constants.TAG,
+                                Log.d(
+                                    Constants.TAG,
                                     String.format(
                                         "PERMISSION REQUEST %s GRANTED",
                                         request.origin.toString()
@@ -104,7 +100,7 @@ class WebViewActivity : AppCompatActivity() {
                     if (url.contains("/verification-result?")) {
                         // Redirect back to this app once onboarding attempt is finished
                         runOnUiThread {
-                            ResultActivity.start(
+                            MainActivity.launch(
                                 this@WebViewActivity,
                                 url.toUri().getQueryParameter("token") != null
                             )
@@ -127,7 +123,7 @@ class WebViewActivity : AppCompatActivity() {
                 }
             }
 
-            loadUrl("https://demo.incode.id/?client_id=incodeverify_didi_web&redirect_url=dididemo://home&origin=native")
+            loadUrl(Constants.DEMO_URL)
         }
     }
 
@@ -148,11 +144,12 @@ class WebViewActivity : AppCompatActivity() {
         Manifest.permission.CAMERA
     ) == PackageManager.PERMISSION_GRANTED
 
-    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    @Suppress("OVERRIDE_DEPRECATION")
     override fun onBackPressed() {
         if (webView.canGoBack()) {
             webView.goBack()
         } else {
+            @Suppress("DEPRECATION")
             super.onBackPressed()
         }
     }
