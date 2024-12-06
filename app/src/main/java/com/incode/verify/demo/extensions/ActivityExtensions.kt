@@ -20,7 +20,7 @@ fun Activity.openUrl(url: String, isInstantAppLink: Boolean = false): Boolean {
                 ACTION_VIEW,
                 Uri.parse(url)
             ).apply {
-                // Adding the flag so that URL is handled in the instant app through PLay store
+                // Adding the flag so that URL is handled in the instant app through Play store
                 // or directly if app was already loaded.
                 if (isInstantAppLink) {
                     addCategory(CATEGORY_BROWSABLE)
