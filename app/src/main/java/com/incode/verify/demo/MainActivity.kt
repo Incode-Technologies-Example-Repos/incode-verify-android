@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity(), ActionHandler {
         val encodedDemoUrl = URLEncoder.encode(Constants.DEMO_URL, Charsets.UTF_8.name())
         val success = openUrl(
             url = "${Constants.INCODE_URL}$encodedDemoUrl",
-            isInstantAppLink = false
+            isInstantAppLink = true
         )
         if (success) {
             finish()
