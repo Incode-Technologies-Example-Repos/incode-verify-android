@@ -9,7 +9,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.incode.verify.demo.extensions.openUrl
@@ -27,16 +26,15 @@ class MainActivity : ComponentActivity(), ActionHandler {
         setContent {
             IncodeVerifyAndroidTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val modifier = Modifier.padding(innerPadding)
                     if (containsResult()) {
                         if (isApproved()) {
-                            ResultApproved(modifier = modifier, actionHandler = this)
+                            ResultApproved(innerPadding = innerPadding, actionHandler = this)
                         } else {
-                            ResultFailed(modifier = modifier, actionHandler = this)
+                            ResultFailed(innerPadding = innerPadding, actionHandler = this)
                         }
                     } else {
                         Home(
-                            modifier = modifier,
+                            innerPadding = innerPadding,
                             actionHandler = this,
                             showIntroButton = intent.hasCategory(CATEGORY_LAUNCHER)
                         )

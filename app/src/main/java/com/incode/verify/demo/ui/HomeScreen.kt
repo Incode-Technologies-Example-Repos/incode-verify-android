@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -44,13 +45,20 @@ import com.incode.verify.demo.ui.theme.Purple10
 import com.incode.verify.demo.ui.theme.Typography
 
 @Composable
-fun Home(modifier: Modifier = Modifier, actionHandler: ActionHandler, showIntroButton: Boolean) {
+fun Home(
+    innerPadding: PaddingValues,
+    actionHandler: ActionHandler,
+    showIntroButton: Boolean,
+) {
     val introButtonState = remember {
         mutableStateOf(showIntroButton)
     }
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Header(
-            modifier,
+            innerPadding = innerPadding,
             title = stringResource(id = R.string.intro_title),
             subtitle = stringResource(id = R.string.intro_subtitle),
         )
@@ -78,7 +86,7 @@ fun Home(modifier: Modifier = Modifier, actionHandler: ActionHandler, showIntroB
         if (introButtonState.value) {
             Row(
                 horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(horizontal = 24.dp, vertical = 28.dp)
+                modifier = Modifier.padding(horizontal = 24.dp)
             ) {
 
                 Button(
@@ -121,7 +129,7 @@ fun Home(modifier: Modifier = Modifier, actionHandler: ActionHandler, showIntroB
                 .fillMaxWidth()
             Row(
                 horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(horizontal = 24.dp, vertical = 28.dp)
+                modifier = Modifier.padding(horizontal = 24.dp)
             ) {
                 Button(
                     modifier = buttonModifier,
@@ -144,8 +152,7 @@ fun Home(modifier: Modifier = Modifier, actionHandler: ActionHandler, showIntroB
         }
 
         Row(
-            modifier = Modifier
-                .padding(bottom = 40.dp)
+            modifier = Modifier.padding(top = 16.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.intro_terms),
@@ -176,7 +183,7 @@ fun Instruction(icon: Painter, text: String) {
 }
 
 @Composable
-fun Header(modifier: Modifier = Modifier, title: String, subtitle: String) {
+fun Header(innerPadding: PaddingValues, title: String, subtitle: String) {
     Box(
         Modifier
             .background(
@@ -184,8 +191,9 @@ fun Header(modifier: Modifier = Modifier, title: String, subtitle: String) {
             )
             .fillMaxWidth()
             .wrapContentHeight()
+            .padding(top = innerPadding.calculateTopPadding() + 22.dp)
     ) {
-        Column(modifier = modifier.padding(start = 24.dp, end = 24.dp)) {
+        Column(modifier = Modifier.padding(horizontal = 24.dp)) {
             Image(
                 modifier = Modifier.offset(x = (-12).dp),
                 painter = painterResource(id = R.drawable.logo),
@@ -205,6 +213,10 @@ fun Header(modifier: Modifier = Modifier, title: String, subtitle: String) {
 @Composable
 private fun Preview() {
     IncodeVerifyAndroidTheme {
-        Home(actionHandler = ActionHandlerAdapter(), showIntroButton = true)
+        Home(
+            actionHandler = ActionHandlerAdapter(),
+            showIntroButton = true,
+            innerPadding = PaddingValues()
+        )
     }
 }

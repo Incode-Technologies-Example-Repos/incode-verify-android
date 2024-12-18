@@ -2,6 +2,7 @@ package com.incode.verify.demo.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,14 +26,14 @@ import com.incode.verify.demo.ui.theme.IncodeVerifyAndroidTheme
 import com.incode.verify.demo.ui.theme.Typography
 
 @Composable
-fun ResultApproved(modifier: Modifier = Modifier, actionHandler: ActionHandler) {
+fun ResultApproved(innerPadding: PaddingValues, actionHandler: ActionHandler) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.then(
+        modifier =
             Modifier
                 .fillMaxHeight()
-                .padding(vertical = 60.dp, horizontal = 24.dp)
-        )
+                .padding(innerPadding)
+                .then(Modifier.padding(top = 60.dp, bottom = 24.dp, start = 24.dp, end = 24.dp))
     ) {
         Text(
             text = stringResource(id = R.string.result_approved_title),
@@ -77,6 +78,6 @@ fun ResultApproved(modifier: Modifier = Modifier, actionHandler: ActionHandler) 
 @Composable
 private fun Preview() {
     IncodeVerifyAndroidTheme {
-        ResultApproved(actionHandler = ActionHandlerAdapter())
+        ResultApproved(innerPadding = PaddingValues(), actionHandler = ActionHandlerAdapter())
     }
 }
