@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">IncodeVerify-Android</string>
 
-    <string name="title_activity_home">Home</string>
+    <string name="title_activity_home">Incode Demo</string>
     <string name="intro_subtitle">Verify your identity and create your digital identity for future use!</string>
     <string name="intro_title">Acme verification with Incode</string>
     <string name="intro_instruction_1">You’ll need a valid government-issued ID and a selfie</string>
