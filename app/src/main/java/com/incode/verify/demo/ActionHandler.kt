@@ -17,3 +17,4 @@ class ActionHandlerAdapter : ActionHandler {
     override fun openTerms() = Unit
     override fun openChromeCustomTabs() = Unit
 }
+

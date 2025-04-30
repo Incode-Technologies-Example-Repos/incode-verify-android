@@ -36,8 +36,6 @@ fun Context.openInCustomTab(
     }
 }
 
-/* ---------- internal helpers ---------- */
-
 /**
  * Returns the package name of an installed browser that supports Custom Tabs,
  * prioritising regular Chrome if available.
