@@ -9,6 +9,7 @@
     <string name="intro_instruction_3">Your data is securely processed and stored in your account</string>
     <string name="intro_webview">Webview</string>
     <string name="intro_instant_app">Instant app</string>
+    <string name="intro_chrome_custom_tabs">Chrome Custom Tabs</string>
     <string name="intro_verify_with_incode">Verify with Incode</string>
     <string name="intro_terms">Incode Terms will apply</string>
     <string name="intro_learn_more">Learn more</string>

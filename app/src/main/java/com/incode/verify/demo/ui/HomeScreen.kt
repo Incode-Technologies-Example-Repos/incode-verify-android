@@ -116,11 +116,10 @@ fun Home(
                 )
             }
             val buttonModifier = Modifier
-                .weight(1f)
                 .height(52.dp)
                 .fillMaxWidth()
-            Row(
-                horizontalArrangement = Arrangement.Center,
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(horizontal = 24.dp, vertical = 28.dp)
             ) {
                 Button(
@@ -136,10 +135,23 @@ fun Home(
                         style = IncodeTypography.labelMedium
                     )
                 }
-                Spacer(modifier = Modifier.width(8.dp))
+
                 Button(
-                    modifier = buttonModifier
-                        .weight(1f),
+                    modifier = buttonModifier,
+                    onClick = { actionHandler.openChromeCustomTabs() },
+                    shape = MaterialTheme.shapes.medium,
+                    colors = ButtonDefaults.buttonColors()
+                        .copy(containerColor = IncodeColors.Purple10)   // same style as WebView
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.intro_chrome_custom_tabs),
+                        color = IncodeColors.Purple,
+                        style = IncodeTypography.labelMedium
+                    )
+                }
+
+                Button(
+                    modifier = buttonModifier,
                     onClick = { actionHandler.openInstantApp() },
                     shape = MaterialTheme.shapes.medium
                 ) {
