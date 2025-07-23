@@ -38,7 +38,7 @@ fun Context.openInCustomTab(
 
 /**
  * Returns the package name of an installed browser that supports Custom Tabs,
- * prioritising regular Chrome if available.
+ * prioritizing regular Chrome if available.
  */
 private fun Context.findCustomTabsBrowserPackage(): String? {
     val candidates = packageManager.queryIntentActivities(
