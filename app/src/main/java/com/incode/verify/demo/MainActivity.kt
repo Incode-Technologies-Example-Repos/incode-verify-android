@@ -11,10 +11,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
+import com.incode.verify.demo.extensions.openInCustomTab
 import com.incode.verify.demo.extensions.openUrl
 import com.incode.verify.demo.ui.Home
 import com.incode.verify.demo.ui.ResultApproved
 import com.incode.verify.demo.ui.ResultFailed
+import com.incode.verify.demo.ui.theme.IncodeColors
 import com.incode.verify.demo.ui.theme.IncodeVerifyAndroidTheme
 import java.net.URLEncoder
 
@@ -81,6 +84,13 @@ class MainActivity : ComponentActivity(), ActionHandler {
 
     override fun openTerms() {
         openUrl(Constants.TERMS_URL)
+    }
+
+    override fun openChromeCustomTabs() {
+        openInCustomTab(
+            url = Constants.DEMO_URL_NO_REDIRECT,
+            toolbarColor = IncodeColors.Purple.toArgb()
+        )
     }
 
     companion object {

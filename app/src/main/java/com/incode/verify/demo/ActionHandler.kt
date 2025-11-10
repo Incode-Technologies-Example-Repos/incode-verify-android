@@ -6,6 +6,7 @@ interface ActionHandler {
     fun openHome()
     fun openHelp()
     fun openTerms()
+    fun openChromeCustomTabs()
 }
 
 class ActionHandlerAdapter : ActionHandler {
@@ -14,4 +15,6 @@ class ActionHandlerAdapter : ActionHandler {
     override fun openHome() = Unit
     override fun openHelp() = Unit
     override fun openTerms() = Unit
+    override fun openChromeCustomTabs() = Unit
 }
+
