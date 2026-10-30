@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.webkit.ConsoleMessage
@@ -65,10 +64,8 @@ class WebViewActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
-                    consoleMessage?.message()?.let { Log.d(Constants.TAG, it) }
-                    return true
-                }
+                // Keep page console output out of logcat: it can contain URLs with the result token.
+                override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean = true
             }
 
             webViewClient = object : WebViewClient() {
@@ -88,8 +85,6 @@ class WebViewActivity : AppCompatActivity() {
                 // The host application is notified to update its visited links database anytime the URL loaded changes.
                 // This can be used to listen for URL changes corresponding to certain events in the WebView.
                 override fun doUpdateVisitedHistory(view: WebView, url: String, isReload: Boolean) {
-                    Log.d(Constants.TAG, "doUpdateVisitedHistory(): $url")
-
                     // Only intercept unique calls.
                     if (url.contentEquals(lastVisitedUrl)) {
                         return
@@ -108,18 +103,6 @@ class WebViewActivity : AppCompatActivity() {
                         }
                     }
                     super.doUpdateVisitedHistory(view, url, isReload)
-                }
-
-                override fun onLoadResource(view: WebView, url: String) {
-                    Log.d(Constants.TAG, "onLoadResource(): $url")
-                }
-
-                override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
-                    Log.d(Constants.TAG, "onPageFinished: $url")
-                }
-
-                override fun onPageFinished(view: WebView, url: String) {
-                    Log.d(Constants.TAG, "onPageFinished(): $url")
                 }
             }
 
