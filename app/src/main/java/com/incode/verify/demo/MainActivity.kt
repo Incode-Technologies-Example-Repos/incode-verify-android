@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.CATEGORY_LAUNCHER
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -48,7 +47,6 @@ class MainActivity : ComponentActivity(), ActionHandler {
     }
 
     private fun containsResult(): Boolean {
-        Log.d(Constants.TAG, "result: ${intent.data?.host}, ${intent.data} ")
         return intent.data?.host?.let { host ->
             host == Constants.PARAM_SUCCESS || host == Constants.PARAM_ERROR
         } ?: intent.hasExtra(EXTRA_SUCCESS)
